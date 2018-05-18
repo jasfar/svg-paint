@@ -2,9 +2,12 @@ var p = new Pencil();
 
 function Pencil() {
 	var svg = createElement('svg');
+	svg.setAttributeNS(null, 'width', window.innerWidth);
+	svg.setAttributeNS(null, 'height', window.innerHeight);
 	document.body.appendChild(svg);
 
-	this.element = svg;
+	this.svg = svg;
+	this.a = null;
 	this.path = null;
 	this.points = [];
 
@@ -13,14 +16,23 @@ function Pencil() {
     this.strokeWidth = '1';
 
 	var self = this;
-	this.root = window;
-	this.root.addEventListener('mousedown', function(e) { self._onmousedown(e) });
-	this.root.addEventListener('mousemove', function(e) { self._onmousemove(e) });
-	this.root.addEventListener('mouseup', function(e) { self._onmouseup(e) });
+	window.addEventListener('resize', function() { self._onresize() });
+	window.addEventListener('mousedown', function(e) { self._onmousedown(e) });
+	window.addEventListener('mousemove', function(e) { self._onmousemove(e) });
+	window.addEventListener('mouseup', function(e) { self._onmouseup(e) });
 }
+
+Pencil.prototype._onresize = function() {
+	this.svg.setAttributeNS(null, 'width', window.innerWidth);
+	this.svg.setAttributeNS(null, 'height', window.innerHeight);
+};
 
 Pencil.prototype._onmousedown = function(e) {
 	var x = e.offsetX, y = e.offsetY;
+
+	this.a = createElement('a');
+	this.a.setAttribute('href', 'https://www.google.com/');
+	this.svg.appendChild(this.a);
 
 	this.points = [[ x, y ]];
 	this.path = createElement('path');
@@ -30,7 +42,7 @@ Pencil.prototype._onmousedown = function(e) {
     
     this._setPoints();
 
-    this.element.appendChild(this.path);
+    this.a.appendChild(this.path);
 };
 
 Pencil.prototype._onmousemove = function(e) {
