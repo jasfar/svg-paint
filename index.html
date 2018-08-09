@@ -1,13 +1,101 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>svg-paint</title>
-	<style>
-	body { margin: 0; overflow: hidden; }
-	a { cursor: pointer; }
-</style>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <style>
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+    }
+
+    #toolbar {
+        position: fixed;
+        z-index: 100;
+        background-color: #f1f1f1;
+        border: 1px solid grey;
+    }
+
+    .bar {
+        height: 1em;
+        cursor: move;
+    }
+
+    .bar:first-child {
+        border-bottom: 1px solid lightgrey;
+    }
+
+    .bar:last-child {
+        border-top: 1px solid lightgrey;
+    }
+
+    #ui {
+        display: flex;
+        user-select: none;
+    }
+
+    #widgets {
+        display: flex;
+    }
+
+    .tool {
+        cursor: pointer;
+        padding: 0.3em;
+        line-height: 0;
+    }
+
+    .tool img {
+        max-height: 1em;
+    }
+
+    .widget {
+        width: 5em;
+        border-left: 1px solid lightgrey;
+    }
+
+    .active-tool {
+        background-color: yellow;
+    }
+
+    #canvas {
+        width: 100%;
+        height: 100%;
+        /*border: 1px solid lightgrey;*/
+    }
+
+    #hover-box {
+        shape-rendering: crispEdges;
+        fill: none;
+        stroke: grey;
+        stroke-dasharray: 3 3;
+    }
+    </style>
 </head>
+
 <body>
-	<script src="script.js"></script>
+    <div id="toolbar">
+        <div class="bar"></div>
+        <div id="ui">
+            <div id="tools">
+                <div class="tool" id="select"><img src="assets/select.png"></div>
+                <div class="tool" id="brush"><img src="assets/brush.png"></div>
+                <div class="tool" id="link"><img src="assets/link.png"></div>
+            </div>
+            <div id="widgets">
+                <div class="widget" id=""></div>
+                <div class="widget" id=""></div>
+            </div>
+        </div>
+        <div class="bar"></div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" id="canvas" onload="addListeners(evt)">
+        <rect id="hover-box"></rect>
+    </svg>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </body>
+
 </html>
